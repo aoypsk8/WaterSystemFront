@@ -11,6 +11,7 @@ export const loginUser = (username, password) => async (dispatch) => {
       console.log(user.user.location);
       localStorage.setItem("token", user.token);
       localStorage.setItem("location", user.user[0].location);
+      localStorage.setItem("role", user.user[0].role);
       dispatch(login(user));
       return true;
     } else {

@@ -8,6 +8,7 @@ import { SearchProduct } from "../api/product/productAction";
 import pomotion from "../assets/tomo.jpeg";
 import notenought from "../assets/not.png";
 import { Link } from "react-router-dom";
+import ImageSlider from "./compones/ImageSlide";
 
 function Home() {
   const dispatch = useDispatch();
@@ -30,27 +31,20 @@ function Home() {
     dispatch(SearchProduct(item));
   };
 
+  const images = [pomotion, bottlewater, pomotion];
+
   return (
     <div className="h-screen w-screen ">
       <Navbar />
-      <div className="m-5 bg-slate-200 h-48 rounded-lg">
-        <img
-          src={pomotion}
-          alt=""
-          className="fit-cover h-full w-full rounded-xl"
-        />
-      </div>
-
+      <ImageSlider images={images} interval={2500} />
       <p className="mx-5">ປະເພດສິນຄ້າ</p>
       <div className="flex mx-5 flex-wrap ">
         {cate.map((category) => (
-           
           <div
             key={category._id}
             className="flex flex-col justify-center h-16 w-16 my-2 items-center  ml-2 "
           >
             <div className="rounded-lg h-full w-full flex justify-center">
-             
               <img
                 src={`http://localhost:3000/uploads/images/${category.images}`}
                 alt=""
@@ -65,7 +59,7 @@ function Home() {
         <div className="relative">
           <button
             onClick={toggleDropdown}
-            className="px-7 py-2 rounded-md bg-gray-200 text-gray-800"
+            className="px-5 py-2 rounded-md bg-gray-200 text-gray-800"
           >
             {selectedItem || "ເລືອກເມືອງ"}
           </button>
@@ -78,7 +72,7 @@ function Home() {
                 ເມືອງໄຊທານີ
               </div>
               <div
-                className="flex justify-center items-center py-2 cursor-pointer hover:bg-gray-100"
+                className="flex justify-center items-center py-2 px-2 cursor-pointer hover:bg-gray-100"
                 onClick={() => handleItemClick("ເມືອງຫາດຊາຍຟອງ")}
               >
                 ເມືອງຫາດຊາຍຟອງ
@@ -98,7 +92,11 @@ function Home() {
             </div>
           )}
         </div>
-        {tokenLoca && <Link to={"/manage"} className="px-2 py-2 rounded-md bg-gray-200">ຈັດການສິນຄ້າ</Link>}
+        {tokenLoca && (
+          <Link to={"/manage"} className="px-2 py-2 rounded-md bg-gray-200">
+            ຈັດການສິນຄ້າ
+          </Link>
+        )}
       </div>
       {product != null ? (
         <div className="flex mx-5 justify-between flex-wrap">

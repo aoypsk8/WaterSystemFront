@@ -1,6 +1,7 @@
 // import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import {
+  UpdateStocklIncreaseProduct,
   UpdateStocklProduct,
   getAllProduct,
   searchProduct,
@@ -55,6 +56,21 @@ export const SearchProductEdit = (location) => async (dispatch) => {
 export const DecreaseProduct = (stock, productID) => async (dispatch) => {
   try {
     const productUpdate = await UpdateStocklProduct(stock, productID);
+    if (productUpdate.status == "ok") {
+      return true;
+    } else {
+      Swal.fire(productUpdate.message);
+    }
+  } catch (error) {
+    Swal.fire(error.message);
+    return false;
+  }
+};
+
+
+export const IncreaseProduct = (stock, productID) => async (dispatch) => {
+  try {
+    const productUpdate = await UpdateStocklIncreaseProduct(stock, productID);
     if (productUpdate.status == "ok") {
       return true;
     } else {

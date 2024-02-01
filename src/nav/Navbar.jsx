@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../api/authAction";
 import Swal from "sweetalert2";
 
 export default function Navbar() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [refresh, setRefresh] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const tokenLoca = localStorage.token;
+  const role = localStorage.role;
+
+
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -34,17 +38,18 @@ export default function Navbar() {
       if (result.isConfirmed) {
         dispatch(logoutUser());
         setRefresh(true);
+        navigate("/");
       }
     });
   };
 
   return (
     <div className="flex items-center lg:px-40 lg:h-[60px] sm:px-16 sm:h-[45px] px-5 h-[60px] py-2 justify-between bg-blue-200 w-screen">
-      <div className="flex items-center">
+      <Link to={"/"} className="flex items-center">
         <p className="lg:text-2xl text-xl  hover:cursor-pointer font-bold">
           Water System
         </p>
-      </div>
+      </Link>
       <ul className="hidden lg:flex items-center list-none ml-10 ">
         <li className="lg:text-2xl sm:text-xl text-xs hover:cursor-pointer">
           ໜ້າຫຼັກ
@@ -95,6 +100,11 @@ export default function Navbar() {
                 <div onClick={() => logout()}>
                   <p className="text-base">ອອກຈາກລະບົບ</p>
                 </div>
+              )}
+              {role =="Admin" && (
+                <Link to={"/adduser"}>
+                  <p className="text-base">ເພີ່ມ User</p>
+                </Link>
               )}
             </li>
           </ul>

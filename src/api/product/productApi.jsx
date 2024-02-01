@@ -26,3 +26,11 @@ export const UpdateStocklProduct = async (stock, productID) => {
   );
   return response.data;
 };
+
+export const UpdateStocklIncreaseProduct = async (stock, productID) => {
+  console.log(stock, productID);
+  const response = await axios.post(
+    `http://localhost:3000/api/product/increase/${productID}`
+  );
+  return response.data;
+};

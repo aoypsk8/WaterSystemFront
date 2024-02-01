@@ -24,6 +24,7 @@ function App() {
       <Route exact path="*" element={<NotFound />} />
       <Route exact path="/login" element={<LoginScreen />} />
       <Route exact path="/manage" element={<Manage />} />
+      <Route exact path="/adduser" element={<NotFound />} />
       {/* <Route exact path="/register" element={<Register />} /> */}
       </Routes>
     </BrowserRouter>
